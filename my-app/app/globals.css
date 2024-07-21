@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Karla", sans-serif;
+}
+:root {
+  background-color: hsl(148, 38%, 91%);
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.input_cont {
+  @apply flex flex-col;
+}
+.btn_custom {
+  @apply bg-green-800 text-white font-semibold p-3 rounded-md hover:bg-green-950;
+}
+.input_box {
+  @apply border border-gray-300 rounded-lg h-10 focus:border-green-600 focus:outline-none;
+}
+.label {
+  @apply text-sm text-gray-500;
+}
+.queryInp {
+  @apply border border-gray-300 rounded-lg px-5 py-3 sm:w-1/2;
+}
