@@ -1,16 +1,32 @@
 "use client";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import data from "../../data.json";
 
-const Searchbar = () => {
+const Searchbar = ({ countries, setCountries }) => {
   const [showFilter, setShowFilter] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState("Filter by Region");
 
-  const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
+  const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"]; // "Americas" is the correct region name
 
   const handleRegionClick = (region) => {
     setSelectedRegion(region);
     setShowFilter(false);
+
+    // Filter countries based on selected region
+    const filteredCountries = data.filter((country) =>
+      country.region.toLowerCase().includes(region.toLowerCase())
+    );
+
+    setCountries(filteredCountries);
+  };
+
+  const handleSearch = (event) => {
+    const value = event.target.value.toLowerCase();
+    const filteredCountries = data.filter((country) =>
+      country.name.toLowerCase().includes(value)
+    );
+    setCountries(filteredCountries);
   };
 
   return (
@@ -23,6 +39,7 @@ const Searchbar = () => {
           type="text"
           className="bg-white dark:bg-[#2b3945] focus:outline-none focus:border-none"
           placeholder="Search for a country..."
+          onChange={handleSearch}
         />
       </div>
 
@@ -44,9 +61,9 @@ const Searchbar = () => {
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="m1 1 4 4 4-4"
             />
           </svg>
@@ -64,9 +81,8 @@ const Searchbar = () => {
               {regions.map((region) => (
                 <li key={region}>
                   <a
-                    href="#"
                     onClick={() => handleRegionClick(region)}
-                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    className="block cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     {region}
                   </a>
